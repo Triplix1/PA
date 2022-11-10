@@ -1,0 +1,13 @@
+﻿@model Row
+
+<div class="content-center">
+<form asp-action="Edit" method="post">
+    <input asp-for="RowId" value="@Model.RowId" class="form-control" hidden />
+    <div class = "form-group">
+        <label asp-for="Value">Input value</Label>
+        <input asp-for="Value" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-primary" asp-action="Index">Back</a>
+</form>
+</div>
