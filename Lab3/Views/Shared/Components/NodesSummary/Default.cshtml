@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Row>
+<div class = "table-block">
+    <table  class="table">
+        <tr>
+            <th>Id</th><th>Value</th><th>Edit<th>
+       </tr>
+        @foreach (var node in Model)
+        {
+            <tr>
+                <td>@node.RowId</td>
+                <td>@node.Value</td>
+                <td>
+                    <form asp-action="Edit" method="get">
+                        <input name="id" value = "@node.RowId" hidden />
+                        <button type="submit" class = "btn btn-primary" >Edit</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
