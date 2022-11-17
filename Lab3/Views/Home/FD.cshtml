@@ -1,0 +1,11 @@
+﻿@model IdentityViewModel
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<div class="content-center">
+<form asp-action=@ViewBag.Action method="post" class="form-group">
+    <label asp-for="Id">Id</label><input asp-for="Id" class="form-control"/>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a class="btn btn-primary" asp-action="Index">Back</a>
+</form>
+</div>
