@@ -1,0 +1,49 @@
+﻿@model PagingInfoViewModel
+
+<div class="header">
+    <p>AVL-Tree</p>
+</div>
+<div class="content">
+    <nav class="navigation">
+        <form asp-action="Index" method="get" class="form-group">
+            <button type="submit" class="btn btn-primary">Home</button>
+        </form>
+        <form asp-action="Find" method="get" class="form-group">
+            <button type="submit" class="btn btn-primary">Find</button>
+        </form>
+        <form asp-action="Remove" method="get" class="form-group">
+            <button type="submit" class="btn btn-primary">Remove</button>
+        </form>
+        <form asp-action="Add" method="get" class="form-group">
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+        <form asp-action="Save" method="get" class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </nav>
+    <div class = main-table>
+        <div class="table-block">
+            <table class="table">
+                <tr>
+                    <th>Id</th>
+                    <th>Value</th>
+                    <th>Edit</th>
+                </tr>
+                @foreach (var node in @Model.Rows)
+                {
+                    <tr>
+                        <td>@node.RowId</td>
+                        <td>@node.Value</td>
+                        <td>
+                            <form asp-action="Edit" method="get">
+                                <input name="id" value="@node.RowId" hidden />
+                                <button type="submit" class="btn btn-primary">Edit</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </table>            
+        </div>
+        <div page-link="@Model.PageInfo" page-action="Index" ></div>
+    </div>
+</div>
