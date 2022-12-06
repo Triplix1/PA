@@ -110,24 +110,20 @@ namespace Lab3.Models
             { return null; }
             else
             {
-                //left subtree
                 if (target < current.Row.RowId)
                 {
                     current.Left = Delete(current.Left, target);
                     current = BalanceTree(current);
                 }
-                //right subtree
                 else if (target > current.Row.RowId)
                 {
                     current.Right = Delete(current.Right, target);
                     current = BalanceTree(current);
                 }
-                //if target is found
                 else
                 {
                     if (current.Right != null)
                     {
-                        //delete its inorder successor
                         parent = current.Right;
                         while (parent.Left != null)
                         {
@@ -139,7 +135,7 @@ namespace Lab3.Models
                         current = BalanceTree(current);
                     }
                     else
-                    {   //if current.left != null
+                    {
                         return current.Left;
                     }
                 }
@@ -227,7 +223,6 @@ namespace Lab3.Models
             parent.Right = SmallRight(pivot);
             return SmallLeft(parent);
         }
-
         private int Height(Node node)
         {
             if (node == null)
