@@ -1,4 +1,9 @@
 #Visual Studio Files
 [Oo]bj
 [Bb]in
-.vs
+*.v1
+*.v2
+*.suo
+*.[Cc]ache
+*.user
+*.csproj.user

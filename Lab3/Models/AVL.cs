@@ -223,6 +223,7 @@ namespace Lab3.Models
             parent.Right = SmallRight(pivot);
             return SmallLeft(parent);
         }
+
         private int Height(Node node)
         {
             if (node == null)
