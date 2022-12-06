@@ -47,7 +47,6 @@ main {
   padding: 20px;
 }
 .table-block {
-/*    overflow-y: scroll; */
     width: 100%;
     justify-self: center;
 }
