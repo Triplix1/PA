@@ -33,17 +33,7 @@ namespace Lab3.Test
             var result = tree.ToList();
 
             //Assert
-            if (result.Count != expected.Count)
-            {
-                throw new Exception("Here is no all elements");
-            }
-            for (int i = 0; i < result.Count; i++)
-            {
-                if (!result[i].Equals(expected[i]))
-                {
-                    throw new Exception("Delete was incorrect");
-                }
-            }
+            Assert.True(expected.SequenceEqual(result));
         }
 
         [Fact]
@@ -110,17 +100,7 @@ namespace Lab3.Test
             var resultList = tree.ToList();
 
             //Assert
-            if (expected.Count != resultList.Count)
-            {
-                throw new Exception("Here is not all elements");
-            }
-            for (int i = 0; i < resultList.Count; i++)
-            {
-                if (!resultList[i].Equals(expected[i]))
-                {
-                    throw new Exception("Delete was incorrect");
-                }
-            }
+            Assert.True(expected.SequenceEqual(resultList));
         }
 
         [Fact]
@@ -138,17 +118,7 @@ namespace Lab3.Test
             var resultList = tree.ToList();
 
             //Assert
-            if (expected.Count != resultList.Count)
-            {
-                throw new Exception("Here is not all elements");
-            }
-            for (int i = 0; i < resultList.Count; i++)
-            {
-                if (!resultList[i].Equals(expected[i]))
-                {
-                    throw new Exception("Delete was incorrect");
-                }
-            }
+            Assert.True(expected.SequenceEqual(resultList));
         }
 
         [Fact]
@@ -200,17 +170,7 @@ namespace Lab3.Test
             var resultList = tree.ToList();
 
             //Asssert
-            if (expected.Count != resultList.Count)
-            {
-                throw new Exception("Here is not all elements");
-            }
-            for (int i = 0; i < resultList.Count; i++)
-            {
-                if (!resultList[i].Equals(expected[i]))
-                {
-                    throw new Exception("Edit was incorrect");
-                }
-            }
+            Assert.True(resultList.SequenceEqual(expected));
         }
 
         [Fact]
@@ -234,17 +194,7 @@ namespace Lab3.Test
             var resultList = tree.ToList();
 
             //Asssert
-            if (expected.Count != resultList.Count)
-            {
-                throw new Exception("Here is not all elements");
-            }
-            for (int i = 0; i < resultList.Count; i++)
-            {
-                if (!resultList[i].Equals(expected[i]))
-                {
-                    throw new Exception("Edit was incorrect");
-                }
-            }
+            Assert.True(resultList.SequenceEqual(expected));
         }
 
         [Fact] 
@@ -268,56 +218,7 @@ namespace Lab3.Test
             var resultList = tree.ToList();
 
             //Asssert
-            if (expected.Count != resultList.Count)
-            {
-                throw new Exception("Here is not all elements");
-            }
-            for (int i = 0; i < resultList.Count; i++)
-            {
-                if (!resultList[i].Equals(expected[i]))
-                {
-                    throw new Exception("Edit was incorrect");
-                }
-            }
-        }
-
-        [Fact]
-        public void CorrectBalancingTest()
-        {
-            //Arrange
-            var mockRepos = new Mock<INodeRepository>();
-            mockRepos.Setup(repo => repo.Nodes).Returns(GetRowsForMock());
-            
-            var tree = new AVL(mockRepos.Object);
-            var rowsToAdd = new List<Row>
-            {
-                new Row { RowId = 4, Value = "4" },
-                null,
-                new Row { RowId = -1, Value = "-1" },
-                new Row { RowId = 15, Value = "15" },
-                null
-            }; ;
-
-            //Act
-            foreach (var item in rowsToAdd)
-            {
-                tree.Add(new Node { Row = item });
-            }
-            
-            var resultList = tree.ToList();
-
-            //Asssert
-            if (tree.ToList().Count != 6)
-            {
-                throw new Exception("Uncorrect balancing");
-            }
-            for (int i = 1; i < resultList.Count; i++)
-            {
-                if (resultList[i - 1].RowId > resultList[i].RowId)
-                {
-                    throw new Exception("Edit was incorrect");
-                }
-            }
+            Assert.True(resultList.SequenceEqual(expected));
         }
     }
 }

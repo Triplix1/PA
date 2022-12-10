@@ -33,13 +33,13 @@ namespace Lab3.Controllers
         }
         public IActionResult Add() => View(new Row());
         [HttpPost]
-        public RedirectToActionResult Add(Row row)
+        public IActionResult Add(Row row)
         {
             if (row.RowId != 0)
             {
                 tree.Add(new Node { Row = row });
             }
-            return RedirectToAction(nameof(Index));            
+            return RedirectToAction(nameof(Index));
         }
         public IActionResult Complete(Row row)
         {            
@@ -79,7 +79,7 @@ namespace Lab3.Controllers
         [HttpPost]
         public RedirectToActionResult Edit(Row node)
         {
-            tree.Edit(node);
+            tree.Edit(node);                      
             return RedirectToAction("Index");
         }
         public RedirectToActionResult Save()

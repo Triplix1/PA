@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Lab3.Models
 {
@@ -8,6 +9,7 @@ namespace Lab3.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int RowId { get; set; }
+        [StringLength(30, ErrorMessage = "Value has to be less than 30 characters!")]
         public string Value { get; set; }
         public override bool Equals(object obj)
         {
