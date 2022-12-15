@@ -59,7 +59,9 @@ namespace Lab3
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-            SeedData.EnsurePopulated(app);
+
+            var seedData = new SeedData();
+            seedData.EnsurePopulated(app);
         }
     }
 }

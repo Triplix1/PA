@@ -5,39 +5,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Lab3.Models
 {
-    public class Row
-    {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int RowId { get; set; }
-        [StringLength(30, ErrorMessage = "Value has to be less than 30 characters!")]
-        public string Value { get; set; }
-        public override bool Equals(object obj)
-        {
-            var other = obj as Row;
-            return this.RowId == other.RowId && this.Value == other.Value;
-        }
-        public override int GetHashCode()
-        {
-            return this.RowId + this.RowId * this.Value.Length;
-        }
-    }
-    public class Node
-    {
-        public Row Row { get; set; }
-        public Node Left { get; set; }
-        public Node Right { get; set; }
-        public Node Parent { get; set; }
-        public Node() { }
-        public Node(Node parent, Row row)
-        {
-            Parent = parent;
-            Row = row;
-        }
-    }
     public class AVL
     {
         Node Root;
+
         public AVL() { }
+
         public AVL(INodeRepository repos)
         {
             if (repos.Nodes != null)
@@ -48,6 +21,7 @@ namespace Lab3.Models
                 }
             }
         }
+
         public void Add(Node data)
         {
             if (data != null && data.Row != null)
@@ -55,6 +29,7 @@ namespace Lab3.Models
                 Root = Add(Root, data);
             }            
         }
+
         private Node Add(Node current, Node n)
         {
             if (current == null)
@@ -72,14 +47,16 @@ namespace Lab3.Models
                 current.Right = Add(current.Right, n);
                 current = BalanceTree(current);
             }
+
             return current;
         }
+
         private Node BalanceTree(Node current)
         {
-            int b_factor = HeightDifference(current);
+            int b_factor = GetHeightDifference(current);
             if (b_factor > 1)
             {
-                if (HeightDifference(current.Left) > 0)
+                if (GetHeightDifference(current.Left) > 0)
                 {
                     current = SmallRight(current);
                 }
@@ -90,7 +67,7 @@ namespace Lab3.Models
             }
             else if (b_factor < -1)
             {
-                if (HeightDifference(current.Right) > 0)
+                if (GetHeightDifference(current.Right) > 0)
                 {
                     current = BigLeft(current);
                 }
@@ -101,15 +78,20 @@ namespace Lab3.Models
             }
             return current;
         }
+
         public void Delete(int target)
         {            
             Root = Delete(Root, target);
         }
+
         private Node Delete(Node current, int target)
         {
             Node parent;
+
             if (current == null)
-            { return null; }
+            { 
+                return null; 
+            }
             else
             {
                 if (target < current.Row.RowId)
@@ -127,10 +109,12 @@ namespace Lab3.Models
                     if (current.Right != null)
                     {
                         parent = current.Right;
+
                         while (parent.Left != null)
                         {
                             parent = parent.Left;
                         }
+
                         current.Row.RowId = parent.Row.RowId;
                         current.Row.Value = parent.Row.Value;
                         current.Right = Delete(current.Right, parent.Row.RowId);
@@ -142,8 +126,10 @@ namespace Lab3.Models
                     }
                 }
             }
+
             return current;
         }
+
         public Node Find(int key, ref int i)
         {
             return Find(key, Root, ref i);
@@ -152,6 +138,7 @@ namespace Lab3.Models
         public Node Find(int key, Node node, ref int comparesNumer)
         {
             comparesNumer++;
+
             if (node == null) return null;
 
             if (key.CompareTo(node.Row.RowId) < 0)
@@ -171,32 +158,37 @@ namespace Lab3.Models
             if (row != null)
             {
                 int i = 0;
+
                 var result = Find(row.RowId, ref i);
+
                 if (result != null)
                 {
                     result.Row.Value = row.Value;
                 }                
             }            
         }
-        public List<Row> ToList()
+        public List<Row> GetRowsList()
         {
             List<Row> nodes = new List<Row>();
-            ToList(Root, nodes);
+
+            GetRowsList(Root, nodes);
+
             return nodes;
         }
-        private void ToList(Node current, List<Row> list)
+        private void GetRowsList(Node current, List<Row> list)
         {
             if (current != null)
             {
-                ToList(current.Left, list);
+                GetRowsList(current.Left, list);
                 list.Add(current.Row);
-                ToList(current.Right, list);
+                GetRowsList(current.Right, list);
             }
         }
-        private int HeightDifference(Node current)
+        private int GetHeightDifference(Node current)
         {
             int l = Height(current.Left);
-            int r = Height(current.Right);             
+            int r = Height(current.Right);  
+            
             return l - r;
         }
         private Node SmallLeft(Node parent)
@@ -204,6 +196,7 @@ namespace Lab3.Models
             Node pivot = parent.Right;
             parent.Right = pivot.Left;
             pivot.Left = parent;
+
             return pivot;
         }
         private Node SmallRight(Node parent)
@@ -211,18 +204,21 @@ namespace Lab3.Models
             Node pivot = parent.Left;
             parent.Left = pivot.Right;
             pivot.Right = parent;
+
             return pivot;
         }
         private Node BigRight(Node parent)
         {
             Node pivot = parent.Left;
             parent.Left = SmallLeft(pivot);
+
             return SmallRight(parent);
         }
         private Node BigLeft(Node parent)
         {
             Node pivot = parent.Right;
             parent.Right = SmallRight(pivot);
+
             return SmallLeft(parent);
         }
 
@@ -232,6 +228,7 @@ namespace Lab3.Models
             {
                 return 0;
             }
+
             return 1 + Math.Max(Height(node.Left), Height(node.Right));
         }        
     }

@@ -5,13 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Lab3.Models
 {
-    public static class SeedData
+    public class SeedData
     {
-        public static void EnsurePopulated(IApplicationBuilder app)
+        public void EnsurePopulated(IApplicationBuilder app)
         {
             ApplicationDbContext context = app.ApplicationServices
                 .GetRequiredService<ApplicationDbContext>();
+
             context.Database.Migrate();
+
             if (!(context.Rows.Any()))
             {
                 for (int i = 1; i <= 10000; i++)
@@ -22,6 +24,7 @@ namespace Lab3.Models
                         Value = i.ToString()
                     });
                 }
+
                 context.SaveChanges();
             }
         }
